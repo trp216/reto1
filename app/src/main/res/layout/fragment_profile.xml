@@ -8,7 +8,7 @@
     <ImageView
         android:id="@+id/image"
         android:layout_width="0dp"
-        android:layout_height="350dp"
+        android:layout_height="240dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -23,13 +23,14 @@
         app:layout_constraintTop_toBottomOf="@+id/image">
 
         <TextView
-            android:id="@+id/nameET"
+            android:id="@+id/businessName"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_marginTop="32dp"
             android:text="Negocio por defecto"
-            android:textColor="@color/design_default_color_error"
+            android:textColor="#8C0000"
             android:textSize="24sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -40,12 +41,12 @@
             android:layout_height="49dp"
             android:layout_marginStart="16dp"
             android:src="@drawable/ic_launcher_foreground"
-            app:layout_constraintBottom_toBottomOf="@+id/nameET"
-            app:layout_constraintStart_toEndOf="@+id/nameET"
-            app:layout_constraintTop_toTopOf="@+id/nameET" />
+            app:layout_constraintBottom_toBottomOf="@+id/businessName"
+            app:layout_constraintStart_toEndOf="@+id/businessName"
+            app:layout_constraintTop_toTopOf="@+id/businessName" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/description"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
@@ -55,7 +56,7 @@
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/nameET" />
+            app:layout_constraintTop_toBottomOf="@+id/businessName" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

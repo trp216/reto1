@@ -9,11 +9,13 @@ import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ProfileFragment.OnEditButtonListener {
 
     private ProfileFragment profileFragment;
     private PostsFragment postsFragment;
     private BottomNavigationView navigator;
+
+    private EditProfileFragment editProfileFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +23,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         profileFragment = ProfileFragment.newInstance();
+        profileFragment.setListener(this);
         postsFragment = PostsFragment.newInstance();
+        editProfileFragment = EditProfileFragment.newInstance();
 
         navigator = findViewById(R.id.navigator);
 
@@ -44,5 +48,10 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.fragmentContainer,f);
         transaction.commit();
+    }
+
+    @Override
+    public void swapFragment(Fragment f) {
+        showFragment(f);
     }
 }

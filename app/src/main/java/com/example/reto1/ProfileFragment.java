@@ -7,20 +7,21 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends Fragment implements EditProfileFragment.OnEditProfileListener {
 
     //State
 
-//    private ImageView image;
-//    private EditText businessName, description;
-//    private Button editBtn;
+    private ImageView image;
+    private TextView businessName, description;
+    private ImageButton editBtn;
+
+    private EditProfileFragment editProfileFragment;
+
+    private OnEditButtonListener listener = null;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -34,12 +35,43 @@ public class ProfileFragment extends Fragment {
         return fragment;
     }
 
+    public void setListener(OnEditButtonListener listener){
+        this.listener = listener;
+    }
+
+
     // El fragment se vuelve visible
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+
+        image = view.findViewById(R.id.image);
+        businessName = view.findViewById(R.id.businessName);
+        description = view.findViewById(R.id.description);
+        editBtn = view.findViewById(R.id.editBtn);
+        editProfileFragment = EditProfileFragment.newInstance();
+        editProfileFragment.setListener(this);
+
+
+        editBtn.setOnClickListener(v->{
+            listener.swapFragment(editProfileFragment);
+        });
+
+        return view;
+    }
+
+    @Override
+    public void onEdit(String name, String desc, ImageView image) {
+        this.image = image;
+        businessName.setText(name);
+        description.setText(desc);
+    }
+
+    public interface OnEditButtonListener{
+        void swapFragment(Fragment f);
     }
 }

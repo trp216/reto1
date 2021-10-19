@@ -1,8 +1,10 @@
 package com.example.reto1;
 
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +24,8 @@ public class ProfileFragment extends Fragment implements EditProfileFragment.OnE
     private EditProfileFragment editProfileFragment;
 
     private OnEditButtonListener listener = null;
+
+    private FragmentTransaction ft;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -56,22 +60,29 @@ public class ProfileFragment extends Fragment implements EditProfileFragment.OnE
         editProfileFragment = EditProfileFragment.newInstance();
         editProfileFragment.setListener(this);
 
+        ft = getActivity().getSupportFragmentManager().beginTransaction();
 
         editBtn.setOnClickListener(v->{
-            listener.swapFragment(editProfileFragment);
+            FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+            ft.hide(this);
+            ft.commit();
+            listener.swapFragment(editProfileFragment, 1);
         });
 
         return view;
     }
 
     @Override
-    public void onEdit(String name, String desc, ImageView image) {
-        this.image = image;
-        businessName.setText(name);
-        description.setText(desc);
+    public void onEdit(Profile profile) {
+        businessName.setText(profile.getName());
+        description.setText(profile.getDescription());
+        image.setImageURI(Uri.parse(profile.getUri()));
+        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+        ft.show(this);
+        ft.commit();
     }
 
     public interface OnEditButtonListener{
-        void swapFragment(Fragment f);
+        void swapFragment(Fragment f, int opt);
     }
 }

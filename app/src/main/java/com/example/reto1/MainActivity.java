@@ -49,9 +49,20 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
         transaction.replace(R.id.fragmentContainer,f);
         transaction.commit();
     }
+    public void addFragment(Fragment f){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.add(R.id.fragmentContainer,f);
+        transaction.commit();
+    }
 
     @Override
-    public void swapFragment(Fragment f) {
-        showFragment(f);
+    public void swapFragment(Fragment f, int opt) {
+        if(opt == 0){
+            showFragment(f);
+        }
+        else{
+            addFragment(f);
+        }
     }
 }

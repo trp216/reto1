@@ -37,4 +37,8 @@ public class Profile {
     public void setUri(String uri) {
         this.uri = uri;
     }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }

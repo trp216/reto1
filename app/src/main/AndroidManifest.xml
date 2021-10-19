@@ -5,6 +5,7 @@
     <!--Permisos peligrosos-->
     <!--Sí necesitan pedirse al usuario, y también se declaran-->
     <uses-permission android:name="android.permission.CAMERA"></uses-permission>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -27,7 +28,7 @@
             android:exported="true">
         </activity>
         <provider
-            android:authorities="com.example.reto1java"
+            android:authorities="com.example.reto1"
             android:name="androidx.core.content.FileProvider"
             android:exported="false"
             android:grantUriPermissions="true">

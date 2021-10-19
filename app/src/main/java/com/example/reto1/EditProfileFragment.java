@@ -34,6 +34,8 @@ public class EditProfileFragment extends Fragment {
 
     private File file;
 
+    private Profile newProfile;
+
     private ActivityResultLauncher<Intent> cameraLauncher;
 
     public EditProfileFragment() {
@@ -93,11 +95,9 @@ public class EditProfileFragment extends Fragment {
 
     public void openCamera(View view){
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-        // PROBLEMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAS
-        file = new File(getActivity().getExternalFilesDir(null)+"/photo.png");
+        file = new File(getContext().getExternalFilesDir(null)+"/photo.png");
         Log.e(">>>",file.toString());
-        Uri uri = FileProvider.getUriForFile(getActivity(),getActivity().getPackageName(),file);
+        Uri uri = FileProvider.getUriForFile(getContext(),getContext().getPackageName(),file);
         intent.putExtra(MediaStore.EXTRA_OUTPUT,uri);
         cameraLauncher.launch(intent);
     }

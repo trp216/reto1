@@ -43,7 +43,7 @@
                         android:id="@+id/businessName"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
-                        android:text="Nombre del negocio"
+                        android:text="Nombre del evento"
                         android:textColor="#8C0000"
                         android:textSize="16sp"
                         android:textStyle="bold"
@@ -52,7 +52,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <EditText
-                        android:id="@+id/nameET"
+                        android:id="@+id/nameEvent"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
@@ -88,7 +88,7 @@
                         android:id="@+id/nameET2"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
-                        android:text="Foto del negocio"
+                        android:text="Ubicacion del evento"
                         android:textColor="#8C0000"
                         android:textSize="16sp"
                         android:textStyle="bold"
@@ -97,13 +97,12 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <ImageButton
-                        android:id="@+id/publicationsImg"
+                        android:id="@+id/businessImg"
                         android:layout_width="108dp"
                         android:layout_height="108dp"
                         android:layout_marginTop="16dp"
                         android:layout_marginBottom="16dp"
                         android:background="#FFFFFF"
-                        android:src="@drawable/camblack"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -130,32 +129,50 @@
                     app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
 
                     <EditText
-                        android:id="@+id/businessDesc"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:id="@+id/inicio"
+                        android:layout_width="115dp"
+                        android:layout_height="38dp"
                         android:layout_marginTop="16dp"
                         android:layout_marginBottom="16dp"
                         android:ems="10"
-                        android:hint="Descripción del negocio"
+                        android:hint="Inicio"
+                        android:inputType="textPersonName"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/fin"
+                        app:layout_constraintHorizontal_bias="0.62"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/nameET3"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                    <EditText
+                        android:id="@+id/fin"
+                        android:layout_width="124dp"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="52dp"
+                        android:layout_marginBottom="16dp"
+                        android:ems="10"
+                        android:hint="fin"
                         android:inputType="textPersonName"
                         android:textSize="14sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.497"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/nameET3" />
+                        app:layout_constraintTop_toBottomOf="@+id/nameET3"
+                        app:layout_constraintVertical_bias="0.0" />
 
                     <TextView
                         android:id="@+id/nameET3"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
-                        android:text="Descripción"
+                        android:text="Horario"
                         android:textColor="#8C0000"
                         android:textSize="16sp"
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.cardview.widget.CardView>
@@ -164,10 +181,10 @@
     </ScrollView>
 
     <Button
-        android:id="@+id/createBtn"
+        android:id="@+id/crearbtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Editar"
+        android:text="Crear"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

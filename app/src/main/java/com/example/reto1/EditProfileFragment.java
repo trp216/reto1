@@ -3,7 +3,6 @@ package com.example.reto1;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -15,7 +14,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,8 +60,8 @@ public class EditProfileFragment extends Fragment implements ChoiceDialog.OnChoi
 
         nameET = view.findViewById(R.id.nameET);
         businessDesc = view.findViewById(R.id.businessDesc);
-        businessImg = view.findViewById(R.id.businessImg);
-        saveBtn = view.findViewById(R.id.saveBtn);
+        businessImg = view.findViewById(R.id.publicationsImg);
+        saveBtn = view.findViewById(R.id.createBtn);
 
         cameraLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), this::onCameraResult);
         galleryLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), this::onGalleryResult);

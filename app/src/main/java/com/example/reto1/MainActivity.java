@@ -9,11 +9,13 @@ import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class MainActivity extends AppCompatActivity implements ProfileFragment.OnEditButtonListener {
+public class MainActivity extends AppCompatActivity implements ProfileFragment.OnEditButtonListener, PostsFragment.OnAddPostListener {
 
     private ProfileFragment profileFragment;
     private PostsFragment postsFragment;
     private BottomNavigationView navigator;
+
+    private NewPublicationFragment newPublicationFragment;
 
     private EditProfileFragment editProfileFragment;
 
@@ -25,6 +27,10 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
         profileFragment = ProfileFragment.newInstance();
         profileFragment.setListener(this);
         postsFragment = PostsFragment.newInstance();
+
+        newPublicationFragment = NewPublicationFragment.newInstance();
+        postsFragment.setListener(this);
+
         editProfileFragment = EditProfileFragment.newInstance();
 
         navigator = findViewById(R.id.navigator);
@@ -69,5 +75,10 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
     @Override
     public void onEditProfile(Profile profile) {
         editProfileFragment.setProfile(profile);
+    }
+
+    @Override
+    public void onAdd() {
+        swapFragment(newPublicationFragment,0);
     }
 }

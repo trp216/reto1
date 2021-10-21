@@ -104,8 +104,4 @@ public class ProfileFragment extends Fragment implements EditProfileFragment.OnE
         this.profile = profile;
     }
 
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//    }
 }

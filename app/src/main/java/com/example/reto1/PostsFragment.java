@@ -15,8 +15,7 @@ public class PostsFragment extends Fragment implements NewPublicationFragment.On
 
     private NewPublicationFragment newPublicationFragment;
 
-
-
+    private OnAddPostListener listener;
 
     private Button createBtn;
 
@@ -44,24 +43,33 @@ public class PostsFragment extends Fragment implements NewPublicationFragment.On
         newPublicationFragment.setListener(this);
 
         createBtn.setOnClickListener(v->{
-          showFragment(newPublicationFragment);
+//          showFragment(newPublicationFragment);
+            listener.onAdd();
         });
         // Inflate the layout for this fragment
         return view;
     }
 
-    public void showFragment(Fragment f) {
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(R.id.bigCLPosts, f);
-        transaction.commit();
-
-    }
+    //Esto lo quité porque lo hago por medio de un listener en main activity
+//    public void showFragment(Fragment f) {
+//        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+//        FragmentTransaction transaction = fragmentManager.beginTransaction();
+//        transaction.replace(R.id.bigCLPosts, f);
+//        transaction.commit();
+//
+//    }
 
     @Override
     public void onCreateBtn(Fragment f) {
-        showFragment(f);
+        //Aquí te quedaría entonces crear la publicación y mandar la info al recycler view
+//        showFragment(f);
     }
 
+    public interface OnAddPostListener{
+        void onAdd();
+    }
 
+    public void setListener(OnAddPostListener listener) {
+        this.listener = listener;
+    }
 }

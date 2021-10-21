@@ -56,13 +56,21 @@ public class EditProfileFragment extends Fragment implements ChoiceDialog.OnChoi
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_edit_profile, container, false);
 
-        newProfile = new Profile();
+        //newProfile = new Profile();
 
         nameET = view.findViewById(R.id.nameET);
         businessDesc = view.findViewById(R.id.businessDesc);
         businessImg = view.findViewById(R.id.publicationsImg);
         saveBtn = view.findViewById(R.id.createBtn);
 
+        nameET.setText(newProfile.getName());
+        businessDesc.setText(newProfile.getDescription());
+
+        String uri = newProfile.getUri();
+        if(uri != null){
+            Uri imageUri =  Uri.parse(uri);
+            businessImg.setImageURI(imageUri);
+        }
         cameraLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), this::onCameraResult);
         galleryLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), this::onGalleryResult);
 
@@ -146,4 +154,7 @@ public class EditProfileFragment extends Fragment implements ChoiceDialog.OnChoi
         void onEdit(Profile profile);
     }
 
+    public void setProfile(Profile profile) {
+        this.newProfile = profile;
+    }
 }

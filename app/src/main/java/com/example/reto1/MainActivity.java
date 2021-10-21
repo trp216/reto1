@@ -34,9 +34,9 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
         navigator.setOnItemSelectedListener(menuItem->{
 
             if(menuItem.getItemId()==R.id.profileItem){
-                showFragment(profileFragment);
+                swapFragment(profileFragment,0);
             }else if(menuItem.getItemId()==R.id.postsItem){
-                showFragment(postsFragment);
+                swapFragment(postsFragment,0);
                 }
             return true;
         });
@@ -64,5 +64,10 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
         else{
             addFragment(f);
         }
+    }
+
+    @Override
+    public void onEditProfile(Profile profile) {
+        editProfileFragment.setProfile(profile);
     }
 }

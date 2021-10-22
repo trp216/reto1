@@ -20,7 +20,7 @@ public class SplashScreen extends AppCompatActivity {
 
         requestPermissions(new String[]{
                 Manifest.permission.CAMERA
-//                ,Manifest.permission.READ_EXTERNAL_STORAGE
+                ,Manifest.permission.READ_EXTERNAL_STORAGE
 
         }, PERMISSION_CALLBACK);
 

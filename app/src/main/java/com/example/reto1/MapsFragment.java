@@ -4,7 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,11 +17,44 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 
 public class MapsFragment extends Fragment {
 
     private OnMapsListener listener;
+
+    private GoogleMap mMap;
+
+    private Marker marker;
+
+    private String dir;
+
+    private GoogleMap.OnMapLongClickListener listenerClick = new GoogleMap.OnMapLongClickListener() {
+        @Override
+        public void onMapLongClick(@NonNull LatLng latLng) {
+            if(marker==null){
+                marker = mMap.addMarker(new MarkerOptions().position(latLng));
+            }
+            else{
+                marker.setPosition(latLng);
+            }
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,16));
+            Geocoder g = new Geocoder(getContext(), Locale.getDefault());
+            try {
+                List<Address> ads = g.getFromLocation(latLng.latitude, latLng.longitude, 1);
+                dir = ads.get(0).getAddressLine(0);
+                Log.e(">>>>>",dir);
+                marker.setTitle(dir);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    };
 
     private OnMapReadyCallback callback = new OnMapReadyCallback() {
 
@@ -33,9 +69,13 @@ public class MapsFragment extends Fragment {
          */
         @Override
         public void onMapReady(GoogleMap googleMap) {
-            LatLng sydney = new LatLng(-34, 151);
-            googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-            googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+//            LatLng sydney = new LatLng(-34, 151);
+//            googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+//            googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+
+            mMap = googleMap;
+
+            mMap.setOnMapLongClickListener(listenerClick);
         }
     };
 

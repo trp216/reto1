@@ -5,14 +5,16 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.Manifest;
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class MainActivity extends AppCompatActivity implements ProfileFragment.OnEditButtonListener, PostsFragment.OnAddPostListener {
+public class MainActivity extends AppCompatActivity implements ProfileFragment.OnEditButtonListener, PostsFragment.OnAddPostListener, MapsFragment.OnMapsListener {
 
     private ProfileFragment profileFragment;
     private PostsFragment postsFragment;
+    private MapsFragment mapsFragment;
     private BottomNavigationView navigator;
 
     private NewPublicationFragment newPublicationFragment;
@@ -24,6 +26,11 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        requestPermissions(new String[]{
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION
+        },1);
+
         profileFragment = ProfileFragment.newInstance();
         profileFragment.setListener(this);
         postsFragment = PostsFragment.newInstance();
@@ -32,6 +39,8 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
         postsFragment.setListener(this);
 
         editProfileFragment = EditProfileFragment.newInstance();
+
+        mapsFragment = new MapsFragment();
 
         navigator = findViewById(R.id.navigator);
 
@@ -43,7 +52,9 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
                 swapFragment(profileFragment,0);
             }else if(menuItem.getItemId()==R.id.postsItem){
                 swapFragment(postsFragment,0);
-                }
+            }else if(menuItem.getItemId()==R.id.mapItem){
+                swapFragment(mapsFragment,0);
+            }
             return true;
         });
 
@@ -81,4 +92,8 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
     public void onAdd() {
         swapFragment(newPublicationFragment,0);
     }
+
+
+    @Override
+    public void onMaps() { swapFragment(mapsFragment,0); }
 }

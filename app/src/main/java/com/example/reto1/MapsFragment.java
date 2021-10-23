@@ -37,12 +37,12 @@ public class MapsFragment extends Fragment {
     private GoogleMap.OnMapLongClickListener listenerClick = new GoogleMap.OnMapLongClickListener() {
         @Override
         public void onMapLongClick(@NonNull LatLng latLng) {
-            if(marker==null){
+          //  if(marker==null){
                 marker = mMap.addMarker(new MarkerOptions().position(latLng));
-            }
-            else{
-                marker.setPosition(latLng);
-            }
+          //  }
+          //  else{
+            //    marker.setPosition(latLng);
+          //  }
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,16));
             Geocoder g = new Geocoder(getContext(), Locale.getDefault());
             try {

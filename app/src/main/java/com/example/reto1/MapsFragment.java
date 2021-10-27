@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
@@ -11,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -34,6 +37,8 @@ public class MapsFragment extends Fragment {
 
     private String dir;
 
+    private Button btnConf;
+
     private GoogleMap.OnMapLongClickListener listenerClick = new GoogleMap.OnMapLongClickListener() {
         @Override
         public void onMapLongClick(@NonNull LatLng latLng) {
@@ -48,8 +53,16 @@ public class MapsFragment extends Fragment {
             try {
                 List<Address> ads = g.getFromLocation(latLng.latitude, latLng.longitude, 1);
                 dir = ads.get(0).getAddressLine(0);
-                Log.e(">>>>>",dir);
                 marker.setTitle(dir);
+
+
+//                Intent intent = new Intent();
+//                intent.putExtra("direccion",dir);
+//                getActivity().setResult(Activity.RESULT_OK,intent);
+//                getActivity().finish();
+
+                Log.e(">>>>>",dir);
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -84,12 +97,23 @@ public class MapsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+
+        View view = inflater.inflate(R.layout.fragment_maps, container, false);
+
+        btnConf = view.findViewById(R.id.btnConf);
+
+        btnConf.setOnClickListener(v->{
+            listener.onMaps(dir);
+           //REMOVER FRAGMENTO
+        });
+
         return inflater.inflate(R.layout.fragment_maps, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         SupportMapFragment mapFragment =
                 (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         if (mapFragment != null) {
@@ -98,7 +122,7 @@ public class MapsFragment extends Fragment {
     }
 
     public interface OnMapsListener{
-        void onMaps();
+        void onMaps(String dir);
     }
 
     public void setListener(OnMapsListener listener){

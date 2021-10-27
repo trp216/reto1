@@ -88,6 +88,7 @@
                         android:id="@+id/nameET2"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
+                        android:layout_marginTop="16dp"
                         android:text="Ubicacion del evento"
                         android:textColor="#8C0000"
                         android:textSize="16sp"
@@ -98,15 +99,32 @@
 
                     <ImageButton
                         android:id="@+id/businessImg"
-                        android:layout_width="108dp"
-                        android:layout_height="108dp"
+                        android:layout_width="72dp"
+                        android:layout_height="74dp"
                         android:layout_marginTop="16dp"
                         android:layout_marginBottom="16dp"
                         android:background="#FFFFFF"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/adddiricon"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.497"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/nameET2"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                    <TextView
+                        android:id="@+id/textDir"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:text="Sin ubicación seleccionada"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/nameET2" />
+                        app:layout_constraintTop_toBottomOf="@+id/businessImg"
+                        app:layout_constraintVertical_bias="0.0" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
 

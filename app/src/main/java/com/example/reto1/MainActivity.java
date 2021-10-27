@@ -10,7 +10,7 @@ import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class MainActivity extends AppCompatActivity implements ProfileFragment.OnEditButtonListener, PostsFragment.OnAddPostListener, MapsFragment.OnMapsListener {
+public class MainActivity extends AppCompatActivity implements ProfileFragment.OnEditButtonListener, PostsFragment.OnAddPostListener {
 
     private ProfileFragment profileFragment;
     private PostsFragment postsFragment;
@@ -93,7 +93,4 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
         swapFragment(newPublicationFragment,0);
     }
 
-
-    @Override
-    public void onMaps() { swapFragment(mapsFragment,0); }
 }

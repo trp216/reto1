@@ -1,5 +1,6 @@
 package com.example.reto1;
 
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,14 +32,16 @@ public class PostAdapter extends RecyclerView.Adapter<PostViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull PostViewHolder holder, int position) {
         Post p = posts.get(position);
-        holder.getPostname().setText(p.getName());
+        holder.getPostName().setText(p.getName());
         holder.getPostlocation().setText(p.getLocation());
         holder.getPoststart().setText(p.getStart());
         holder.getPostend().setText(p.getEnd());
-        holder.getPostbusiness().setText(p.getBusiness());
-        //Hace falta lo del uri de la imagen pero no se como ponerlo
-        //Seria algo como holder.getPostpic().setImage(p.getUri())??????
+        holder.getPostBusiness().setText(p.getBusiness());
 
+        if(p.getUri()!=null){
+        Uri uri = Uri.parse(p.getUri());
+        holder.getPostpic().setImageURI(uri);
+        }
     }
 
     @Override

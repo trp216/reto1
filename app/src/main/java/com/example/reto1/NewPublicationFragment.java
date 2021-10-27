@@ -31,6 +31,8 @@ public class NewPublicationFragment extends Fragment implements MapsFragment.OnM
     private EditText inicio;
     private EditText fin;
 
+    private Post newPost;
+
     public NewPublicationFragment() {
         // Required empty public constructor
     }
@@ -63,6 +65,8 @@ public class NewPublicationFragment extends Fragment implements MapsFragment.OnM
         locationBtn = view.findViewById(R.id.locationBtn);
         addBtn = view.findViewById(R.id.addBtn);
 
+        newPost = new Post();
+
         locationBtn.setOnClickListener(
                 v -> {
                     FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
@@ -71,10 +75,17 @@ public class NewPublicationFragment extends Fragment implements MapsFragment.OnM
                     transaction.hide(this);
                     transaction.commit();
                 }
-        ); //NO OLVIDAR ESTOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
-        //ALSO, HELP PORQUE TOCA QUE ESTE FRAGMENTO SE VAYA A LA CHINGADA Y VUELVA AL DE POSTSFRAGMENT
-        addBtn.setOnClickListener( v -> { //AUN MO ESTA IMPLEMENTADO LO DE PASARLE EL NOMBRE DEL BUSINESS Y LO DEL URI
-            listener.onCreateBtn(new Post(nameEvent.getText().toString(), textDir.getText().toString(), inicio.getText().toString(), fin.getText().toString(), "Not implemented", ""));
+        );
+        addBtn.setOnClickListener( v -> {
+
+            newPost.setName(nameEvent.getText().toString());
+            newPost.setBusiness("");
+            newPost.setUri("");
+            newPost.setStart(inicio.getText().toString());
+            newPost.setEnd(fin.getText().toString());
+            newPost.setLocation(textDir.getText().toString());
+            listener.onCreateBtn(newPost);
+
 
         });
         return view;
@@ -84,6 +95,7 @@ public class NewPublicationFragment extends Fragment implements MapsFragment.OnM
     public void onMaps(String dir) {
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.remove(mapsFragment);
         transaction.show(this);
         transaction.commit();
         textDir.setText(dir);

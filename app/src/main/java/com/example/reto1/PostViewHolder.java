@@ -5,31 +5,34 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class PostViewHolder extends RecyclerView.ViewHolder {
 
     //Views
-    private TextView postname;
+    private TextView postBusiness;
     private TextView postlocation;
     private TextView postend;
     private TextView poststart;
-    private TextView postbusiness;
+    private TextView postName;
     private ImageView postpic;
 
     public PostViewHolder(View itemView) {
         super(itemView);
-        postname = itemView.findViewById(R.id.postname);
+        postBusiness = itemView.findViewById(R.id.postBusiness);
         postlocation = itemView.findViewById(R.id.postlocation);
         poststart = itemView.findViewById(R.id.poststart);
         postend = itemView.findViewById(R.id.postend);
-        postbusiness = itemView.findViewById(R.id.postbusiness);
+        postName = itemView.findViewById(R.id.postName);
         postpic = itemView.findViewById(R.id.postpic);
     }
 
-    public TextView getPostname() {
-        return postname;
+    public TextView getPostBusiness() {
+        return postBusiness;
+    }
+
+    public TextView getPostName() {
+        return postName;
     }
 
     public TextView getPostlocation() {
@@ -42,10 +45,6 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
 
     public TextView getPoststart() {
         return poststart;
-    }
-
-    public TextView getPostbusiness() {
-        return postbusiness;
     }
 
     public ImageView getPostpic() {

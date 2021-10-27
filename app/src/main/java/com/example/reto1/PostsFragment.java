@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ScrollView;
 
 public class PostsFragment extends Fragment implements NewPublicationFragment.OnCreatePublicationListener{
@@ -26,6 +27,9 @@ public class PostsFragment extends Fragment implements NewPublicationFragment.On
     private RecyclerView postsrecycler;
 
     private PostAdapter adapter;
+
+    private Button addMoreBtn;
+
 
     public PostsFragment() {
         // Required empty public constructor
@@ -52,21 +56,25 @@ public class PostsFragment extends Fragment implements NewPublicationFragment.On
         postsrecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
         postsrecycler.setAdapter(adapter);
 
+        addMoreBtn = view.findViewById(R.id.addMoreBtn);
+        addMoreBtn.setVisibility(View.INVISIBLE);
+
         newPublicationFragment = NewPublicationFragment.newInstance();
         newPublicationFragment.setListener(this);
 
         createBtn.setOnClickListener(v->{
-            FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-            ft.hide(this);
-            ft.commit();
-            listener.onAdd();
-            listener.swapFragment(newPublicationFragment,1);
+            listener.swapFragment(newPublicationFragment,0);
+        });
+        addMoreBtn.setOnClickListener(v->{
+            listener.swapFragment(newPublicationFragment,0);
         });
 
         if(adapter.getItemCount()>0){
             ScrollView scrollView2 = view.findViewById(R.id.scrollView2);
             scrollView2.setVisibility(View.INVISIBLE);
             postsrecycler.setVisibility(View.VISIBLE);
+            addMoreBtn.setVisibility(View.VISIBLE);
+            createBtn.setVisibility(View.INVISIBLE);
         }
 
         return view;
@@ -75,17 +83,23 @@ public class PostsFragment extends Fragment implements NewPublicationFragment.On
 
     @Override
     public void onCreateBtn(Post newPost) {
-        //Aquí te quedaría entonces crear la publicación y mandar la info al recycler view
-//        showFragment(f);
-        adapter.addPost(newPost);
+        listener.onAdd(newPost);
     }
 
     public interface OnAddPostListener{
-        void onAdd();
+        void onAdd(Post newPost);
         void swapFragment(Fragment f, int opt);
+    }
+
+    public void addPost(Post newPost){
+        adapter.addPost(newPost);
     }
 
     public void setListener(OnAddPostListener listener) {
         this.listener = listener;
+    }
+
+    public PostAdapter getAdapter() {
+        return adapter;
     }
 }

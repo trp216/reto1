@@ -58,7 +58,7 @@
                         android:layout_marginTop="16dp"
                         android:layout_marginBottom="16dp"
                         android:ems="10"
-                        android:hint="Nombre del negocio"
+                        android:hint="Nombre del evento"
                         android:inputType="textPersonName"
                         android:textSize="14sp"
                         app:layout_constraintBottom_toBottomOf="parent"

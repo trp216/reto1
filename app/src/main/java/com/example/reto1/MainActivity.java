@@ -21,6 +21,8 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
 
     private EditProfileFragment editProfileFragment;
 
+    private Profile profile;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
 
         profileFragment = ProfileFragment.newInstance();
         profileFragment.setListener(this);
+        profile = new Profile();
         postsFragment = PostsFragment.newInstance();
 
         newPublicationFragment = NewPublicationFragment.newInstance();
@@ -85,12 +88,20 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
 
     @Override
     public void onEditProfile(Profile profile) {
-        editProfileFragment.setProfile(profile);
+        this.profile = profile;
+        editProfileFragment.setProfile(this.profile);
+    }
+
+    public Profile getProfile() {
+        return profile;
     }
 
     @Override
-    public void onAdd() {
-        //swapFragment(newPublicationFragment,0);
+    public void onAdd(Post newPost) {
+        newPost.setBusiness(profile.getName());
+        newPost.setUri(profile.getUri());
+        postsFragment.addPost(newPost);
+        swapFragment(postsFragment,0);
     }
 
 }

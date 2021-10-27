@@ -3,6 +3,8 @@ package com.example.reto1;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -104,10 +106,14 @@ public class MapsFragment extends Fragment {
 
         btnConf.setOnClickListener(v->{
             listener.onMaps(dir);
+            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            transaction.remove(this);
+            transaction.commit();
            //REMOVER FRAGMENTO
         });
 
-        return inflater.inflate(R.layout.fragment_maps, container, false);
+        return view;
     }
 
     @Override

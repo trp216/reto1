@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,7 @@ public class PostsFragment extends Fragment implements NewPublicationFragment.On
 
     private NewPublicationFragment newPublicationFragment;
 
-    private OnAddPostListener listener;
+    private OnAddPostListener listener = null;
 
     private Button createBtn;
 
@@ -25,7 +26,6 @@ public class PostsFragment extends Fragment implements NewPublicationFragment.On
     public static PostsFragment newInstance() {
         PostsFragment fragment = new PostsFragment();
         Bundle args = new Bundle();
-
         fragment.setArguments(args);
         return fragment;
     }
@@ -43,21 +43,15 @@ public class PostsFragment extends Fragment implements NewPublicationFragment.On
         newPublicationFragment.setListener(this);
 
         createBtn.setOnClickListener(v->{
-//          showFragment(newPublicationFragment);
+            FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+            ft.hide(this);
+            ft.commit();
             listener.onAdd();
+            listener.swapFragment(newPublicationFragment,1);
         });
-        // Inflate the layout for this fragment
         return view;
     }
 
-    //Esto lo quité porque lo hago por medio de un listener en main activity
-//    public void showFragment(Fragment f) {
-//        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-//        FragmentTransaction transaction = fragmentManager.beginTransaction();
-//        transaction.replace(R.id.bigCLPosts, f);
-//        transaction.commit();
-//
-//    }
 
     @Override
     public void onCreateBtn(Fragment f) {
@@ -67,6 +61,7 @@ public class PostsFragment extends Fragment implements NewPublicationFragment.On
 
     public interface OnAddPostListener{
         void onAdd();
+        void swapFragment(Fragment f, int opt);
     }
 
     public void setListener(OnAddPostListener listener) {

@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
 
     @Override
     public void onAdd() {
-        swapFragment(newPublicationFragment,0);
+        //swapFragment(newPublicationFragment,0);
     }
 
 }

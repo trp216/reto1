@@ -2,19 +2,19 @@ package com.example.reto1;
 
 import static android.app.Activity.RESULT_OK;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 
@@ -24,7 +24,7 @@ public class NewPublicationFragment extends Fragment implements MapsFragment.OnM
 
     private OnCreatePublicationListener listener = null;
 
-    private ImageView businessImg;
+    private Button locationBtn, addBtn;
 
     private TextView nameEvent;
     private TextView textDir;
@@ -60,29 +60,31 @@ public class NewPublicationFragment extends Fragment implements MapsFragment.OnM
         mapsFragment = new MapsFragment();
         mapsFragment.setListener(this);
 
-        businessImg = view.findViewById(R.id.businessImg);
-        ActivityResultLauncher<Intent> launcherMaps = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(), this::onMaps
-        );
-        businessImg.setOnClickListener(
-                v -> {
-                    Intent intent = new Intent(this.getActivity(), MapsFragment.class);
-                }
-        ); //Cuando se de click se abra el fragmento del mapa
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_new_publication, container, false);
-    }
+        locationBtn = view.findViewById(R.id.locationBtn);
+        addBtn = view.findViewById(R.id.addBtn);
 
-    public void onMaps(ActivityResult result) {
-        if(result.getResultCode() == RESULT_OK) {
-            String name = result.getData().getExtras().getString("direccion");
-            textDir.setText(name);
-        }
+        locationBtn.setOnClickListener(
+                v -> {
+                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                    FragmentTransaction transaction = fragmentManager.beginTransaction();
+                    transaction.add(R.id.fragmentContainer,mapsFragment);
+                    transaction.hide(this);
+                    transaction.commit();
+                }
+        );
+        addBtn.setOnClickListener( v -> {
+
+        });
+        return view;
     }
 
     @Override
     public void onMaps(String dir) {
-
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.show(this);
+        transaction.commit();
+        textDir.setText(dir);
     }
 
     public interface OnCreatePublicationListener{

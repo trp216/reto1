@@ -35,12 +35,18 @@ public class PostAdapter extends RecyclerView.Adapter<PostViewHolder> {
         holder.getPostlocation().setText(p.getLocation());
         holder.getPoststart().setText(p.getStart());
         holder.getPostend().setText(p.getEnd());
-
+        holder.getPostbusiness().setText(p.getBusiness());
+        //Hace falta lo del uri de la imagen pero no se como ponerlo
+        //Seria algo como holder.getPostpic().setImage(p.getUri())??????
 
     }
 
     @Override
     public int getItemCount() {
         return posts.size();
+    }
+
+    public void addPost(Post newPost){
+        posts.add(newPost);
     }
 }

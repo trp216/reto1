@@ -2,6 +2,7 @@ package com.example.reto1;
 
 
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,6 +15,8 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
     private TextView postlocation;
     private TextView postend;
     private TextView poststart;
+    private TextView postbusiness;
+    private ImageView postpic;
 
     public PostViewHolder(View itemView) {
         super(itemView);
@@ -21,6 +24,8 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
         postlocation = itemView.findViewById(R.id.postlocation);
         poststart = itemView.findViewById(R.id.poststart);
         postend = itemView.findViewById(R.id.postend);
+        postbusiness = itemView.findViewById(R.id.postbusiness);
+        postpic = itemView.findViewById(R.id.postpic);
     }
 
     public TextView getPostname() {
@@ -37,5 +42,13 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
 
     public TextView getPoststart() {
         return poststart;
+    }
+
+    public TextView getPostbusiness() {
+        return postbusiness;
+    }
+
+    public ImageView getPostpic() {
+        return postpic;
     }
 }

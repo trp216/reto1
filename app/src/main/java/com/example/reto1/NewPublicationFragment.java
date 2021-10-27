@@ -71,8 +71,10 @@ public class NewPublicationFragment extends Fragment implements MapsFragment.OnM
                     transaction.hide(this);
                     transaction.commit();
                 }
-        );
-        addBtn.setOnClickListener( v -> {
+        ); //NO OLVIDAR ESTOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
+        //ALSO, HELP PORQUE TOCA QUE ESTE FRAGMENTO SE VAYA A LA CHINGADA Y VUELVA AL DE POSTSFRAGMENT
+        addBtn.setOnClickListener( v -> { //AUN MO ESTA IMPLEMENTADO LO DE PASARLE EL NOMBRE DEL BUSINESS Y LO DEL URI
+            listener.onCreateBtn(new Post(nameEvent.getText().toString(), textDir.getText().toString(), inicio.getText().toString(), fin.getText().toString(), "Not implemented", ""));
 
         });
         return view;
@@ -88,6 +90,6 @@ public class NewPublicationFragment extends Fragment implements MapsFragment.OnM
     }
 
     public interface OnCreatePublicationListener{
-        void onCreateBtn(Fragment f);
+        void onCreateBtn(Post newPost);
     }
 }

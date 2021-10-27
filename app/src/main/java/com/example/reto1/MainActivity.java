@@ -6,9 +6,15 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.Manifest;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements ProfileFragment.OnEditButtonListener, PostsFragment.OnAddPostListener {
 
@@ -89,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
     @Override
     public void onEditProfile(Profile profile) {
         this.profile = profile;
-        editProfileFragment.setProfile(this.profile);
+        editProfileFragment.setProfile(profile);
     }
 
     public Profile getProfile() {
@@ -103,5 +109,41 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
         postsFragment.addPost(newPost);
         swapFragment(postsFragment,0);
     }
+    @Override
+    public void onResume() {
+        SharedPreferences sharedPreferences = getSharedPreferences("MainActivity",MODE_PRIVATE);
 
+        String json = sharedPreferences.getString("profile","NO_OBJ");
+        if(!json.equals("NO_OBJ")){
+            Gson gson = new Gson();
+            Profile p = gson.fromJson(json,Profile.class);
+            editProfileFragment.setProfile(p);
+        }
+
+        String jsonPosts = sharedPreferences.getString("posts","NO_OBJ");
+        if(!jsonPosts.equals("NO_OBJ")){
+            Gson gson = new Gson();
+            Type type = new TypeToken<ArrayList<Post>>(){}.getType();
+            ArrayList<Post> posts = gson.fromJson(jsonPosts,type);
+            postsFragment.getAdapter().setPosts(posts);
+        }
+
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        Profile p = profileFragment.getProfile();
+        ArrayList<Post> posts = postsFragment.getPosts();
+        Gson gson = new Gson();
+        String json = gson.toJson(p);
+        String jsonPosts = gson.toJson(posts);
+        //Local storage
+        SharedPreferences sharedPreferences = getSharedPreferences("MainActivity",MODE_PRIVATE);
+        sharedPreferences.edit()
+                .putString("profile",json)
+                .putString("posts",jsonPosts)
+                .apply();
+        super.onPause();
+    }
 }

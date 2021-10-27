@@ -16,6 +16,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 
+import java.util.ArrayList;
+
 public class PostsFragment extends Fragment implements NewPublicationFragment.OnCreatePublicationListener{
 
     private NewPublicationFragment newPublicationFragment;
@@ -102,4 +104,9 @@ public class PostsFragment extends Fragment implements NewPublicationFragment.On
     public PostAdapter getAdapter() {
         return adapter;
     }
+
+    public ArrayList<Post> getPosts(){
+        return adapter.getPosts();
+    }
+
 }

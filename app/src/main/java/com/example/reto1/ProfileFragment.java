@@ -104,4 +104,7 @@ public class ProfileFragment extends Fragment implements EditProfileFragment.OnE
         this.profile = profile;
     }
 
+    public Profile getProfile() {
+        return profile;
+    }
 }

@@ -166,7 +166,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="32dp"
-                android:background="@color/red"
+                android:background="@drawable/botonstyle"
                 android:text="Editar"
                 android:textColor="@color/white"
                 android:textSize="20sp" />

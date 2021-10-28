@@ -1,20 +1,16 @@
 package com.example.reto1;
 
-import static android.app.Activity.RESULT_OK;
 
 import android.os.Bundle;
 
-import androidx.activity.result.ActivityResult;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;

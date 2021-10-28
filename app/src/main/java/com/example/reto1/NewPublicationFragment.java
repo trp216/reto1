@@ -17,6 +17,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 public class NewPublicationFragment extends Fragment implements MapsFragment.OnMapsListener{
 
@@ -24,12 +27,11 @@ public class NewPublicationFragment extends Fragment implements MapsFragment.OnM
 
     private OnCreatePublicationListener listener = null;
 
-    private Button locationBtn, addBtn;
+    private Button locationBtn, addBtn, inicioBtn, finalBtn;
 
     private TextView nameEvent;
     private TextView textDir;
-    private EditText inicio;
-    private EditText fin;
+
 
     private Post newPost;
 
@@ -56,8 +58,8 @@ public class NewPublicationFragment extends Fragment implements MapsFragment.OnM
         View view = inflater.inflate(R.layout.fragment_new_publication, container, false);
         nameEvent = view.findViewById(R.id.nameEvent);
         textDir = view.findViewById(R.id.textDir);
-        inicio = view.findViewById(R.id.inicio);
-        fin = view.findViewById(R.id.fin);
+        inicioBtn = view.findViewById(R.id.inicioBtn);
+        finalBtn = view.findViewById(R.id.finalBtn);
 
         mapsFragment = new MapsFragment();
         mapsFragment.setListener(this);
@@ -66,6 +68,8 @@ public class NewPublicationFragment extends Fragment implements MapsFragment.OnM
         addBtn = view.findViewById(R.id.addBtn);
 
         newPost = new Post();
+        inicioBtn.setOnClickListener(this::defineStartDate);
+        finalBtn.setOnClickListener(this::defineEndDate);
 
         locationBtn.setOnClickListener(
                 v -> {
@@ -81,8 +85,10 @@ public class NewPublicationFragment extends Fragment implements MapsFragment.OnM
             newPost.setName(nameEvent.getText().toString());
             newPost.setBusiness("");
             newPost.setUri("");
-            newPost.setStart(inicio.getText().toString());
-            newPost.setEnd(fin.getText().toString());
+
+            newPost.setStart(inicioBtn.getText().toString());
+            newPost.setEnd(finalBtn.getText().toString());
+
             newPost.setLocation(textDir.getText().toString());
             listener.onCreateBtn(newPost);
 
@@ -103,5 +109,27 @@ public class NewPublicationFragment extends Fragment implements MapsFragment.OnM
 
     public interface OnCreatePublicationListener{
         void onCreateBtn(Post newPost);
+    }
+    private void defineStartDate(View view) {
+        showDatePicker(date->{
+            inicioBtn.setText(formatDate(date));
+        });
+    }
+
+    private String formatDate(long date) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+        return sdf.format(new Date(date));
+    }
+
+    private void defineEndDate(View view) {
+        showDatePicker(date -> {
+            finalBtn.setText(formatDate(date));
+        });
+    }
+
+    private void showDatePicker(DateDialogFragment.OnDateSelectedListener listener) {
+        DateDialogFragment dialog = new DateDialogFragment();
+        dialog.setListener(listener);
+        dialog.show(getActivity().getSupportFragmentManager(), "dialog");
     }
 }

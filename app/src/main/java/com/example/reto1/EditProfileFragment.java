@@ -126,7 +126,7 @@ public class EditProfileFragment extends Fragment implements ChoiceDialog.OnChoi
             Bitmap thumbnail = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth()/4,bitmap.getHeight()/4,true);
             businessImg.setImageBitmap(thumbnail);
             Uri uri = FileProvider.getUriForFile(getContext(),getContext().getPackageName(),file);
-            newProfile.setUri(UtilDomi.getPath(getContext(),uri));
+            newProfile.setUri(file.getPath());
 
         }else if(result.getResultCode()==getActivity().RESULT_CANCELED){
             Toast.makeText(getContext(),"Operación cancelada", Toast.LENGTH_LONG).show();

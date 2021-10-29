@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.Manifest;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.Gson;
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
     private EditProfileFragment editProfileFragment;
 
     private Profile profile;
+    private ArrayList<Post> posts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
 
         profileFragment = ProfileFragment.newInstance();
         profileFragment.setListener(this);
-        profile = new Profile();
+
         postsFragment = PostsFragment.newInstance();
 
         newPublicationFragment = NewPublicationFragment.newInstance();
@@ -52,6 +54,9 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
         mapsFragment = new MapsFragment();
 
         navigator = findViewById(R.id.navigator);
+
+        loadProfile();
+        loadPosts();
 
         showFragment(profileFragment);
 
@@ -67,6 +72,29 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
             return true;
         });
 
+    }
+
+    private void loadProfile() {
+        SharedPreferences sharedPreferences = getSharedPreferences("MainActivity",MODE_PRIVATE);
+        String json = sharedPreferences.getString("profile","NO_OBJ");
+        if(!json.equals("NO_OBJ")){
+            Gson gson = new Gson();
+            Profile p = gson.fromJson(json,Profile.class);
+            profile = p;
+            profileFragment.setProfile(p);
+        }
+    }
+
+    private void loadPosts(){
+        SharedPreferences sharedPreferences = getSharedPreferences("MainActivity",MODE_PRIVATE);
+        String json = sharedPreferences.getString("posts","NO_OBJ");
+        if(!json.equals("NO_OBJ")){
+            Gson gson = new Gson();
+            Type type = new TypeToken<ArrayList<Post>>(){}.getType();
+            ArrayList<Post> ps = gson.fromJson(json,type);
+            posts = ps;
+            postsFragment.setPosts(posts);
+        }
     }
 
     public void showFragment(Fragment f){
@@ -107,43 +135,17 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
         newPost.setBusiness(profile.getName());
         newPost.setUri(profile.getUri());
         postsFragment.addPost(newPost);
+        posts = postsFragment.getPosts();
+        savePosts();
         swapFragment(postsFragment,0);
     }
-//    @Override
-//    public void onResume() {
-//        SharedPreferences sharedPreferences = getSharedPreferences("MainActivity",MODE_PRIVATE);
-//
-//        String json = sharedPreferences.getString("profile","NO_OBJ");
-//        if(!json.equals("NO_OBJ")){
-//            Gson gson = new Gson();
-//            Profile p = gson.fromJson(json,Profile.class);
-//            editProfileFragment.setProfile(p);
-//        }
-//
-//        String jsonPosts = sharedPreferences.getString("posts","NO_OBJ");
-//        if(!jsonPosts.equals("NO_OBJ")){
-//            Gson gson = new Gson();
-//            Type type = new TypeToken<ArrayList<Post>>(){}.getType();
-//            ArrayList<Post> posts = gson.fromJson(jsonPosts,type);
-//            postsFragment.getAdapter().setPosts(posts);
-//        }
-//
-//        super.onResume();
-//    }
-//
-//    @Override
-//    public void onPause() {
-//        Profile p = profileFragment.getProfile();
-//        ArrayList<Post> posts = postsFragment.getPosts();
-//        Gson gson = new Gson();
-//        String json = gson.toJson(p);
-//        String jsonPosts = gson.toJson(posts);
-//        //Local storage
-//        SharedPreferences sharedPreferences = getSharedPreferences("MainActivity",MODE_PRIVATE);
-//        sharedPreferences.edit()
-//                .putString("profile",json)
-//                .putString("posts",jsonPosts)
-//                .apply();
-//        super.onPause();
-//    }
+    private void savePosts() {
+        Gson gson = new Gson();
+        String json = gson.toJson(posts);
+        //Local storage
+        SharedPreferences sharedPreferences = getSharedPreferences("MainActivity", MODE_PRIVATE);
+        sharedPreferences.edit()
+                .putString("posts", json)
+                .apply();
+    }
 }

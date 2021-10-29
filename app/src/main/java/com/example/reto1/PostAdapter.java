@@ -1,5 +1,8 @@
 package com.example.reto1;
 
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +10,8 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
@@ -39,8 +44,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostViewHolder> {
         holder.getPostBusiness().setText(p.getBusiness());
 
         if(p.getUri()!=null){
-        Uri uri = Uri.parse(p.getUri());
-        holder.getPostpic().setImageURI(uri);
+            Bitmap bitmap = BitmapFactory.decodeFile(p.getUri());
+            Bitmap thumbnail = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth()/4,bitmap.getHeight()/4,true);
+            holder.getPostpic().setImageBitmap(thumbnail);
         }
     }
 
@@ -60,4 +66,5 @@ public class PostAdapter extends RecyclerView.Adapter<PostViewHolder> {
     public void setPosts(ArrayList<Post> posts) {
         this.posts = posts;
     }
+
 }

@@ -1,6 +1,7 @@
 package com.example.reto1;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -14,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +23,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.google.gson.Gson;
 
 import java.io.File;
 
@@ -68,8 +72,9 @@ public class EditProfileFragment extends Fragment implements ChoiceDialog.OnChoi
 
         String uri = newProfile.getUri();
         if(uri != null){
-            Uri imageUri =  Uri.parse(uri);
-            businessImg.setImageURI(imageUri);
+            Bitmap bitmap = BitmapFactory.decodeFile(newProfile.getUri());
+            Bitmap thumbnail = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth()/4,bitmap.getHeight()/4,true);
+            businessImg.setImageBitmap(thumbnail);
         }
         cameraLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), this::onCameraResult);
         galleryLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), this::onGalleryResult);
@@ -84,6 +89,7 @@ public class EditProfileFragment extends Fragment implements ChoiceDialog.OnChoi
             ft.remove(this);
             ft.commit();
             listener.onEdit(newProfile);
+            saveProfile(newProfile);
 
         });
 
@@ -93,11 +99,22 @@ public class EditProfileFragment extends Fragment implements ChoiceDialog.OnChoi
         return view;
     }
 
+    private void saveProfile(Profile p) {
+        Gson gson = new Gson();
+        String json = gson.toJson(p);
+        //Local storage
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MainActivity",getActivity().MODE_PRIVATE);
+        sharedPreferences.edit()
+                .putString("profile",json)
+                .apply();
+    }
+
+
     public void onGalleryResult(ActivityResult result){
         if(result.getResultCode()==getActivity().RESULT_OK){
             Uri uri = result.getData().getData();
             businessImg.setImageURI(uri);
-            newProfile.setUri(uri.toString());
+            newProfile.setUri(UtilDomi.getPath(getContext(),uri));
         }
     }
 
@@ -109,7 +126,7 @@ public class EditProfileFragment extends Fragment implements ChoiceDialog.OnChoi
             Bitmap thumbnail = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth()/4,bitmap.getHeight()/4,true);
             businessImg.setImageBitmap(thumbnail);
             Uri uri = FileProvider.getUriForFile(getContext(),getContext().getPackageName(),file);
-            newProfile.setUri(uri.toString());
+            newProfile.setUri(UtilDomi.getPath(getContext(),uri));
 
         }else if(result.getResultCode()==getActivity().RESULT_CANCELED){
             Toast.makeText(getContext(),"Operación cancelada", Toast.LENGTH_LONG).show();

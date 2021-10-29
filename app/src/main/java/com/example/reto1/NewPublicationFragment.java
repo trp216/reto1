@@ -1,6 +1,7 @@
 package com.example.reto1;
 
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -13,7 +14,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 
@@ -27,6 +31,8 @@ public class NewPublicationFragment extends Fragment implements MapsFragment.OnM
 
     private TextView nameEvent;
     private TextView textDir;
+
+    private ArrayList<Post> posts;
 
 
     private Post newPost;
@@ -122,7 +128,16 @@ public class NewPublicationFragment extends Fragment implements MapsFragment.OnM
             finalBtn.setText(formatDate(date));
         });
     }
+    private void savePosts() {
+        Gson gson = new Gson();
+        String json = gson.toJson(posts);
+        //Local storage
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MainActivity", getActivity().MODE_PRIVATE);
+        sharedPreferences.edit()
+                .putString("posts", json)
+                .apply();
 
+    }
     private void showDatePicker(DateDialogFragment.OnDateSelectedListener listener) {
         DateDialogFragment dialog = new DateDialogFragment();
         dialog.setListener(listener);

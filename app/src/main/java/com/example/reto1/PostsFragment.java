@@ -1,5 +1,6 @@
 package com.example.reto1;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -16,9 +17,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 
-public class PostsFragment extends Fragment implements NewPublicationFragment.OnCreatePublicationListener{
+public class PostsFragment extends Fragment implements NewPublicationFragment.OnCreatePublicationListener {
 
     private NewPublicationFragment newPublicationFragment;
 
@@ -32,11 +35,15 @@ public class PostsFragment extends Fragment implements NewPublicationFragment.On
 
     private Button addMoreBtn;
 
+    private ArrayList<Post> posts;
+
 
     public PostsFragment() {
         // Required empty public constructor
         adapter = new PostAdapter();
+        posts = new ArrayList<>();
     }
+
     public static PostsFragment newInstance() {
         PostsFragment fragment = new PostsFragment();
         Bundle args = new Bundle();
@@ -49,7 +56,7 @@ public class PostsFragment extends Fragment implements NewPublicationFragment.On
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_posts,container,false);
+        View view = inflater.inflate(R.layout.fragment_posts, container, false);
 
         createBtn = view.findViewById(R.id.createBtn);
         postsrecycler = view.findViewById(R.id.postsrecycler);
@@ -64,14 +71,14 @@ public class PostsFragment extends Fragment implements NewPublicationFragment.On
         newPublicationFragment = NewPublicationFragment.newInstance();
         newPublicationFragment.setListener(this);
 
-        createBtn.setOnClickListener(v->{
-            listener.swapFragment(newPublicationFragment,0);
+        createBtn.setOnClickListener(v -> {
+            listener.swapFragment(newPublicationFragment, 0);
         });
-        addMoreBtn.setOnClickListener(v->{
-            listener.swapFragment(newPublicationFragment,0);
+        addMoreBtn.setOnClickListener(v -> {
+            listener.swapFragment(newPublicationFragment, 0);
         });
 
-        if(adapter.getItemCount()>0){
+        if (adapter.getItemCount() > 0) {
             ScrollView scrollView2 = view.findViewById(R.id.scrollView2);
             scrollView2.setVisibility(View.INVISIBLE);
             postsrecycler.setVisibility(View.VISIBLE);
@@ -82,19 +89,27 @@ public class PostsFragment extends Fragment implements NewPublicationFragment.On
         return view;
     }
 
-
     @Override
     public void onCreateBtn(Post newPost) {
         listener.onAdd(newPost);
     }
 
-    public interface OnAddPostListener{
+    public interface OnAddPostListener {
         void onAdd(Post newPost);
+
         void swapFragment(Fragment f, int opt);
     }
 
-    public void addPost(Post newPost){
+    public void addPost(Post newPost) {
         adapter.addPost(newPost);
+        posts = adapter.getPosts();
+    }
+
+    public void setPosts(ArrayList<Post> ps) {
+        for(int i = 0; i<ps.size();i++){
+            posts.add(ps.get(i));
+            addPost(ps.get(i));
+        }
     }
 
     public void setListener(OnAddPostListener listener) {
@@ -105,8 +120,8 @@ public class PostsFragment extends Fragment implements NewPublicationFragment.On
         return adapter;
     }
 
-    public ArrayList<Post> getPosts(){
-        return adapter.getPosts();
+    public ArrayList<Post> getPosts() {
+        return posts;
     }
 
 }

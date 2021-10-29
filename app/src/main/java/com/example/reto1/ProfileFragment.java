@@ -1,11 +1,14 @@
 package com.example.reto1;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,8 +70,9 @@ public class ProfileFragment extends Fragment implements EditProfileFragment.OnE
         description.setText(profile.getDescription());
         if (profile.getUri() != null){
             String uri = profile.getUri();
-            Uri imageUri = Uri.parse(uri);
-            image.setImageURI(imageUri);
+            Bitmap bitmap = BitmapFactory.decodeFile(uri);
+            Bitmap thumbnail = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth()/4,bitmap.getHeight()/4,true);
+            image.setImageBitmap(thumbnail);
         }
 
         ft = getActivity().getSupportFragmentManager().beginTransaction();
@@ -77,7 +81,6 @@ public class ProfileFragment extends Fragment implements EditProfileFragment.OnE
             FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
             ft.hide(this);
             ft.commit();
-            listener.onEditProfile(profile);
             listener.swapFragment(editProfileFragment, 1);
         });
 
@@ -86,11 +89,15 @@ public class ProfileFragment extends Fragment implements EditProfileFragment.OnE
 
     @Override
     public void onEdit(Profile profile) {
+        this.profile = profile;
         businessName.setText(profile.getName());
         description.setText(profile.getDescription());
         if(profile.getUri()!=null) {
-            image.setImageURI(Uri.parse(profile.getUri()));
+            Bitmap bitmap = BitmapFactory.decodeFile(profile.getUri());
+            Bitmap thumbnail = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth()/4,bitmap.getHeight()/4,true);
+            image.setImageBitmap(thumbnail);
         }
+        listener.onEditProfile(profile);
         FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
         ft.show(this);
         ft.commit();

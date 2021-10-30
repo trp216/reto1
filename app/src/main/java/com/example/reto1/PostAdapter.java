@@ -38,7 +38,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostViewHolder> {
     public void onBindViewHolder(@NonNull PostViewHolder holder, int position) {
         Post p = posts.get(position);
         holder.getPostName().setText(p.getName());
-        //holder.getPostlocation().setText(p.getLocation());
+        holder.getPostlocation().setText(p.getLocation());
         holder.getPoststart().setText(p.getStart());
         holder.getPostend().setText(p.getEnd());
         holder.getPostBusiness().setText(p.getBusiness());

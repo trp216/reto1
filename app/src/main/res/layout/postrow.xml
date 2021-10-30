@@ -9,76 +9,110 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FFFFFF"
+        android:background="#E6E6E6"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/postpic"
-            android:layout_width="108dp"
-            android:layout_height="108dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_launcher_foreground" />
-
-        <TextView
-            android:id="@+id/postBusiness"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginBottom="20dp"
-            android:text="TextView"
-            app:layout_constraintBottom_toBottomOf="@+id/postpic"
-            app:layout_constraintStart_toEndOf="@+id/postpic"
-            app:layout_constraintTop_toBottomOf="@+id/postName" />
-
-        <TextView
-            android:id="@+id/postend"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="150dp"
-            android:layout_marginEnd="64dp"
-            android:layout_marginBottom="16dp"
-            android:background="#E6E6E6"
-            android:text="TextView"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="#FFFFFF"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/poststart"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/poststart"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="64dp"
-            android:layout_marginTop="150dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="16dp"
-            android:background="#E6E6E6"
-            android:text="TextView"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/postend"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/postName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginBottom="64dp"
-            android:text="TextView"
-            android:textColor="#FF0000"
-            app:layout_constraintBottom_toBottomOf="@+id/postpic"
-            app:layout_constraintStart_toEndOf="@+id/postpic"
-            app:layout_constraintTop_toTopOf="@+id/postpic" />
+            <ImageView
+                android:id="@+id/postpic"
+                android:layout_width="108dp"
+                android:layout_height="108dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_launcher_foreground" />
 
+            <TextView
+                android:id="@+id/postBusiness"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="32dp"
+                android:text="TextView"
+                app:layout_constraintBottom_toBottomOf="@+id/postpic"
+                app:layout_constraintStart_toEndOf="@+id/postpic"
+                app:layout_constraintTop_toBottomOf="@+id/postName" />
+
+            <TextView
+                android:id="@+id/postend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="64dp"
+                android:layout_marginBottom="16dp"
+                android:background="#E6E6E6"
+                android:text="TextView"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/poststart"
+                app:layout_constraintTop_toBottomOf="@+id/postlocation" />
+
+            <TextView
+                android:id="@+id/poststart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="64dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="16dp"
+                android:background="#E6E6E6"
+                android:text="TextView"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/postend"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/postlocation" />
+
+            <TextView
+                android:id="@+id/postName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="64dp"
+                android:text="TextView"
+                android:textColor="#FF0000"
+                app:layout_constraintBottom_toBottomOf="@+id/postpic"
+                app:layout_constraintStart_toEndOf="@+id/postpic"
+                app:layout_constraintTop_toTopOf="@+id/postpic" />
+
+            <TextView
+                android:id="@+id/postlocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="TextView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/postpic" />
+
+            <ImageButton
+                android:id="@+id/imageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="24dp"
+                android:background="@drawable/bordereye"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/outline_visibility_black_48dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

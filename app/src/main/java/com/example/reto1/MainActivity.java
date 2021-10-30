@@ -17,11 +17,13 @@ import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements ProfileFragment.OnEditButtonListener, PostsFragment.OnAddPostListener {
+public class MainActivity extends AppCompatActivity implements ProfileFragment.OnEditButtonListener, PostsFragment.OnAddPostListener, GeneralMapFragment.OnGeneralMapListener {
 
     private ProfileFragment profileFragment;
     private PostsFragment postsFragment;
-    private MapsFragment mapsFragment;
+    //private MapsFragment mapsFragment;
+    private GeneralMapFragment generalMapFragment;
+
     private BottomNavigationView navigator;
 
     private NewPublicationFragment newPublicationFragment;
@@ -51,12 +53,15 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
 
         editProfileFragment = EditProfileFragment.newInstance();
 
-        mapsFragment = new MapsFragment();
+        generalMapFragment = new GeneralMapFragment();
+        generalMapFragment.setListener(this);
 
         navigator = findViewById(R.id.navigator);
 
         loadProfile();
         loadPosts();
+
+
 
         showFragment(profileFragment);
 
@@ -67,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
             }else if(menuItem.getItemId()==R.id.postsItem){
                 swapFragment(postsFragment,0);
             }else if(menuItem.getItemId()==R.id.mapItem){
-                swapFragment(mapsFragment,0);
+                swapFragment(generalMapFragment,0);
             }
             return true;
         });
@@ -94,6 +99,11 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
             ArrayList<Post> ps = gson.fromJson(json,type);
             posts = ps;
             postsFragment.setPosts(ps);
+
+            for(int i = 0;i<posts.size();i++){
+                Log.e(">>>>>>>",posts.get(i).getLocation());
+            }
+            generalMapFragment.setPosts(posts);
         }
     }
 
@@ -147,5 +157,10 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
         sharedPreferences.edit()
                 .putString("posts", json)
                 .apply();
+    }
+
+    @Override
+    public void onGeneralMap() {
+        swapFragment(generalMapFragment,0);
     }
 }

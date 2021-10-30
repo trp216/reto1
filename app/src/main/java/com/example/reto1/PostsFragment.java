@@ -107,7 +107,6 @@ public class PostsFragment extends Fragment implements NewPublicationFragment.On
 
     public void setPosts(ArrayList<Post> ps) {
         for(int i = 0; i<ps.size();i++){
-            posts.add(ps.get(i));
             addPost(ps.get(i));
         }
     }

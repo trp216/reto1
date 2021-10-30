@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
             Type type = new TypeToken<ArrayList<Post>>(){}.getType();
             ArrayList<Post> ps = gson.fromJson(json,type);
             posts = ps;
-            postsFragment.setPosts(posts);
+            postsFragment.setPosts(ps);
         }
     }
 
@@ -135,11 +135,11 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
         newPost.setBusiness(profile.getName());
         newPost.setUri(profile.getUri());
         postsFragment.addPost(newPost);
-        posts = postsFragment.getPosts();
         savePosts();
         swapFragment(postsFragment,0);
     }
     private void savePosts() {
+        posts = postsFragment.getPosts();
         Gson gson = new Gson();
         String json = gson.toJson(posts);
         //Local storage

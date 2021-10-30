@@ -50,7 +50,7 @@ public class MapsFragment extends Fragment {
           //  else{
             //    marker.setPosition(latLng);
           //  }
-            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,16));
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,20));
             Geocoder g = new Geocoder(getContext(), Locale.getDefault());
             try {
                 List<Address> ads = g.getFromLocation(latLng.latitude, latLng.longitude, 1);

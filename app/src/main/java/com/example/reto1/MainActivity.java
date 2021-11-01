@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
 
         editProfileFragment = EditProfileFragment.newInstance();
 
-        generalMapFragment = new GeneralMapFragment();
+        generalMapFragment = GeneralMapFragment.newInstance();
         generalMapFragment.setListener(this);
 
         navigator = findViewById(R.id.navigator);

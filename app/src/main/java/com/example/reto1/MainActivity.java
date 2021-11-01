@@ -150,6 +150,7 @@ public class MainActivity extends AppCompatActivity implements ProfileFragment.O
     }
     private void savePosts() {
         posts = postsFragment.getPosts();
+        generalMapFragment.setPosts(posts);
         Gson gson = new Gson();
         String json = gson.toJson(posts);
         //Local storage

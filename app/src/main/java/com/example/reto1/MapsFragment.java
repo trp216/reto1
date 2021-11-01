@@ -44,24 +44,18 @@ public class MapsFragment extends Fragment {
     private GoogleMap.OnMapLongClickListener listenerClick = new GoogleMap.OnMapLongClickListener() {
         @Override
         public void onMapLongClick(@NonNull LatLng latLng) {
-          //  if(marker==null){
+            if(marker==null){
                 marker = mMap.addMarker(new MarkerOptions().position(latLng));
-          //  }
-          //  else{
-            //    marker.setPosition(latLng);
-          //  }
+            }
+            else{
+                marker.setPosition(latLng);
+            }
             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,20));
             Geocoder g = new Geocoder(getContext(), Locale.getDefault());
             try {
                 List<Address> ads = g.getFromLocation(latLng.latitude, latLng.longitude, 1);
                 dir = ads.get(0).getAddressLine(0);
                 marker.setTitle(dir);
-
-
-//                Intent intent = new Intent();
-//                intent.putExtra("direccion",dir);
-//                getActivity().setResult(Activity.RESULT_OK,intent);
-//                getActivity().finish();
 
                 Log.e(">>>>>",dir);
 

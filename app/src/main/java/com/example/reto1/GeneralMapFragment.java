@@ -56,29 +56,32 @@ public class GeneralMapFragment extends Fragment {
         @Override
         public void onMapReady(GoogleMap googleMap) {
             mMap = googleMap;
-
-            Geocoder coder = new Geocoder(getView().getContext());
-            List<Address> addresses;
-            LatLng p1 = null;
-            try{
-                for(int i = 0;i<posts.size();i++){
-                    addresses = coder.getFromLocationName(posts.get(i).getLocation(), 5);
-                    if(addresses!=null){
-                        Address location = addresses.get(0);
-                        //Log.e(">>>>>>>>>","LOCATION DECODED: "+location.getLatitude()+", "+ location.getLongitude());
-
-                        p1 = new LatLng(location.getLatitude(), location.getLongitude());
-                       // Log.e(">>>>>>>","LATLONG: "+p1);
-                        marker = mMap.addMarker(new MarkerOptions().position(p1));
-                        marker.setTitle(posts.get(i).getBusiness());
-                        marker.setSnippet(posts.get(i).getName());
-                    }
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            loadMap();
         }
     };
+
+    public void loadMap(){
+        Geocoder coder = new Geocoder(getView().getContext());
+        List<Address> addresses;
+        LatLng p1 = null;
+        try{
+            for(int i = 0;i<posts.size();i++){
+                addresses = coder.getFromLocationName(posts.get(i).getLocation(), 5);
+                if(addresses!=null){
+                    Address location = addresses.get(0);
+                    //Log.e(">>>>>>>>>","LOCATION DECODED: "+location.getLatitude()+", "+ location.getLongitude());
+
+                    p1 = new LatLng(location.getLatitude(), location.getLongitude());
+                    // Log.e(">>>>>>>","LATLONG: "+p1);
+                    marker = mMap.addMarker(new MarkerOptions().position(p1));
+                    marker.setTitle(posts.get(i).getBusiness());
+                    marker.setSnippet(posts.get(i).getName());
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public static GeneralMapFragment newInstance() {
         GeneralMapFragment fragment = new GeneralMapFragment();
